@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Promptly</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h2>Promptly</h2>
+  <label for="goal">Optimization Goal:</label>
+  <select id="goal">
+    <option value="clarity">Clarity</option>
+    <option value="creativity">Creativity</option>
+    <option value="cost">Cost</option>
+    <option value="safety">Safety</option>
+  </select>
+  <button id="optimize">Optimize Prompt</button>
+  <script src="popup.js"></script>
+  <textarea id="optimized" rows="5" placeholder="Optimized prompt will appear here..." readonly></textarea>
+  <button id="replace">Replace Original Prompt</button>
+
+<div id="loading" style="display: none;">Optimizing...</div>
+
+</body>
+</html>
