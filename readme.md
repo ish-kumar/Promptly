@@ -11,7 +11,15 @@ Promptly is a Chrome extension and backend service that helps you optimize, rewr
 
 ## Demo
 
-![Promptly Screenshot](path/to/screenshot.png) *Promptly in action on ChatGPT.com*
+<p align="center">
+  <img src="extension/assets/Promptly_SS_1.png" width="80%" alt="Promptly in action on ChatGPT.com" />
+</p>
+<p align="center"><em>Promptly in action on ChatGPT.com</em></p>
+
+<p align="center">
+  <img src="extension/assets/Promptly_SS_2.png" alt="Promptly's prompt history section" width="60%">
+</p>
+<p align="center"><em>Promptly's prompt history section (compact view)</em></p>
 
 ## Getting Started
 
@@ -86,5 +94,3 @@ MIT License
 * [OpenRouter](https://openrouter.ai/) for LLM API access
 * [Mistral AI](https://mistral.ai/) for the default model
 * The open-source community for inspiration and support
-
-*Promptly is built and maintained by [Your Name]. For questions or feedback, please open an issue or contact me via GitHub.*
