@@ -1,10 +1,103 @@
 body {
-    font-family: sans-serif;
-    padding: 10px;
-    width: 250px;
-  }
-  
-  h2 {
-    margin-top: 0;
-  }
-  
+  background: #fff;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 360px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+main {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.25rem;
+}
+label {
+  font-size: 0.85rem;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+select, textarea, input {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background: #f9fafb;
+  transition: border 0.2s;
+}
+select:focus, textarea:focus, input:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+button {
+  width: 100%;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: background 0.2s;
+}
+#optimize {
+  background: #2563eb;
+  color: #fff;
+}
+#optimize:hover {
+  background: #1d4ed8;
+}
+#replace {
+  background: #059669;
+  color: #fff;
+}
+#replace:hover {
+  background: #047857;
+}
+#loading {
+  color: #2563eb;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+footer {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-top: 1px solid #f3f4f6;
+}
+#history-section {
+  max-height: 250px;
+  overflow-y: auto;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+#history-list > div {
+  margin-bottom: 0.5rem;
+}
+.star {
+  transition: color 0.2s;
+}
+.star:hover {
+  color: #fbbf24 !important;
+}
+.copy-btn {
+  cursor: pointer;
+}
+.copy-btn:active {
+  color: #2563eb;
+}

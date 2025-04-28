@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+
+# Virtual environments
+venv/
+.env
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+
+# Extension build artifacts
+extension/*.zip

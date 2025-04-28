@@ -3,7 +3,7 @@
     "name": "Promptly",
     "version": "0.1",
     "description": "Optimize your prompts in real time",
-    "permissions": ["activeTab", "scripting"],
+    "permissions": ["activeTab", "scripting", "storage", "clipboardWrite"],
     "host_permissions": ["<all_urls>"],
     "action": {
       "default_popup": "popup/popup.html",
