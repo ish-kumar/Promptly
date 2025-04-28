@@ -21,3 +21,4 @@ node_modules/
 
 # Extension build artifacts
 extension/*.zip
+.env
