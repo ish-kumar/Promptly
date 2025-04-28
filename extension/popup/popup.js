@@ -107,9 +107,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const data = await res.json();
           output.value = data.optimized_prompt || "No response received.";
-
-          // Save to history if optimization succeeded
-          if (data.optimized_prompt) {
+          
+          // Only save to history if the optimized prompt is valid (not an error)
+          if (
+            data.optimized_prompt &&
+            !data.optimized_prompt.startsWith("Error") &&
+            !data.optimized_prompt.startsWith("API Error")
+          ) {
             savePromptToHistory({
               original: prompt,
               optimized: data.optimized_prompt,

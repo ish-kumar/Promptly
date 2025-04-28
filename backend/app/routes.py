@@ -1,5 +1,4 @@
-# backend/app/routes.py
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from app.prompt_engine import optimize_prompt
 
@@ -11,5 +10,8 @@ class PromptRequest(BaseModel):
 
 @router.post("/optimize")
 async def optimize(request: PromptRequest):
-    optimized = await optimize_prompt(request.prompt, request.goal)
-    return {"optimized_prompt": optimized}
+    try:
+        optimized = await optimize_prompt(request.prompt, request.goal)
+        return {"optimized_prompt": optimized}
+    except HTTPException as e:
+        return {"optimized_prompt": f"Error: {e.detail}"}

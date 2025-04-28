@@ -1,13 +1,13 @@
-# backend/app/prompt_engine.py
 import httpx
-import json
+import openai
+import os
 from typing import Literal
 from fastapi import HTTPException
-from app.config import OPENROUTER_API_KEY
+from app.config import OPENROUTER_API_KEY, GROQ_API_KEY
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-DEFAULT_MODEL = "mistralai/mistral-7b-instruct:free"
-
+OPENROUTER_MODEL = "mistralai/mistral-7b-instruct:free"
+GROQ_MODEL = "llama-3.1-8b-instant"  # You can also use llama3-8b-8192, etc.
 
 GoalType = Literal["clarity", "creativity", "cost", "safety"]
 
@@ -30,31 +30,57 @@ GOAL_INSTRUCTIONS = {
     )
 }
 
-async def optimize_prompt(prompt: str, goal: str) -> str:
-    if not OPENROUTER_API_KEY:
-        return "Error: OpenRouter API key not configured"
-
+def build_prompts(prompt: str, goal: str):
     instruction = GOAL_INSTRUCTIONS.get(goal.lower(), "Rewrite the prompt to improve it.")
-    
     system_prompt = (
         "You are a prompt optimization assistant. Your job is to rewrite prompts "
         "based on specific goals like clarity, creativity, cost, or safety."
     )
-
     user_prompt = (
         f"{instruction} Rewrite the following prompt, and respond ONLY with the improved prompt—do not include any explanation or extra text.\n\n"
         f"Original Prompt:\n{prompt}\n\n"
         f"Optimized Prompt:"
     )
+    return system_prompt, user_prompt
+
+def call_groq(prompt: str, goal: str) -> str | None:
+    if not GROQ_API_KEY:
+        print("GROQ API key not configured.")
+        return None
+    try:
+        client = openai.OpenAI(
+            api_key=GROQ_API_KEY,
+            base_url="https://api.groq.com/openai/v1"
+        )
+        system_prompt, user_prompt = build_prompts(prompt, goal)
+        response = client.chat.completions.create(
+            model=GROQ_MODEL,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.7,
+            max_tokens=300,
+            timeout=15
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"GROQ error: {e}")
+        return None
+
+async def call_openrouter(prompt: str, goal: str) -> str | None:
+    if not OPENROUTER_API_KEY:
+        print("OpenRouter API key not configured.")
+        return None
+    system_prompt, user_prompt = build_prompts(prompt, goal)
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
         "HTTP-Referer": "http://localhost:3000",  # For local development
         "X-Title": "Promptly",
     }
-
     payload = {
-        "model": DEFAULT_MODEL,
+        "model": OPENROUTER_MODEL,
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
@@ -63,7 +89,6 @@ async def optimize_prompt(prompt: str, goal: str) -> str:
         "max_tokens": 300,
         "stream": False
     }
-
     try:
         async with httpx.AsyncClient(timeout=30.0) as client:
             response = await client.post(
@@ -71,16 +96,24 @@ async def optimize_prompt(prompt: str, goal: str) -> str:
                 headers=headers, 
                 json=payload
             )
-            
-            # Print debug information
-            print(f"Status Code: {response.status_code}")
-            print(f"Response: {response.text}")
-            
+            print(f"OpenRouter Status Code: {response.status_code}")
+            print(f"OpenRouter Response: {response.text}")
             if response.status_code != 200:
-                return f"API Error: {response.text}"
-                
+                return None
             data = response.json()
             return data["choices"][0]["message"]["content"].strip()
     except Exception as e:
-        print(f"Debug - Full error: {str(e)}")  # Debug print
-        return f"Error optimizing prompt: {str(e)}"
+        print(f"OpenRouter error: {e}")
+        return None
+
+async def optimize_prompt(prompt: str, goal: str) -> str:
+    # Try Groq first
+    result = call_groq(prompt, goal)
+    if result:
+        return result
+    # If Groq fails, try OpenRouter
+    result = await call_openrouter(prompt, goal)
+    if result:
+        return result
+    # If both fail, return a clear error
+    raise HTTPException(status_code=503, detail="All LLM providers failed. Please try again later.")
