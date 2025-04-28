@@ -17,9 +17,9 @@ Promptly is a Chrome extension and backend service that helps you optimize, rewr
 <p align="center"><em>Promptly in action on ChatGPT.com</em></p>
 
 <p align="center">
-  <img src="extension/assets/Promptly_SS_2.png" width="80%" alt="Promptly in action on ChatGPT.com" />
+  <img src="extension/assets/Promptly_SS_2.png" alt="Promptly's prompt history section" width="60%">
 </p>
-<p align="center"><em>Promptly's prompt history section</em></p>
+<p align="center"><em>Promptly's prompt history section (compact view)</em></p>
 
 ## Getting Started
 
