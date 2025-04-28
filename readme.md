@@ -86,5 +86,3 @@ MIT License
 * [OpenRouter](https://openrouter.ai/) for LLM API access
 * [Mistral AI](https://mistral.ai/) for the default model
 * The open-source community for inspiration and support
-
-*Promptly is built and maintained by [Your Name]. For questions or feedback, please open an issue or contact me via GitHub.*
