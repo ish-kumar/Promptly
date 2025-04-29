@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "Promptly",
-    "version": "0.1",
-    "description": "Optimize your prompts in real time",
+    "version": "1.0",
+    "description": "AI Prompt Optimizer and Quality Checker",
     "permissions": ["activeTab", "scripting", "storage", "clipboardWrite"],
     "host_permissions": ["<all_urls>"],
     "action": {
@@ -24,6 +24,9 @@
         "16": "assets/icon16.png",
         "48": "assets/icon48.png",
         "128": "assets/icon128.png"
-      }
-  }
+    },
+    "content_security_policy": {
+      "extension_pages": "script-src 'self' http://localhost:* http://127.0.0.1:*; object-src 'self'"
+    }
+}
   

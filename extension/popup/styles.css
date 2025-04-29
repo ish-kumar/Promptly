@@ -101,3 +101,15 @@ footer {
 .copy-btn:active {
   color: #2563eb;
 }
+.history-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  transition: box-shadow 0.2s;
+}
+.history-card:hover {
+  box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+}

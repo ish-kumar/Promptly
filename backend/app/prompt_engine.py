@@ -22,7 +22,18 @@ GOAL_INSTRUCTIONS = {
     ),
     "cost": (
         "Rewrite the prompt to be as concise and efficient as possible while preserving its core meaning. "
-        "Minimize token usage and remove unnecessary words or complexity."
+        "Use these optimization techniques:\n"
+        "1. Remove redundant words and phrases\n"
+        "2. Replace long phrases with shorter synonyms\n"
+        "3. Use abbreviations where clear\n"
+        "4. Remove unnecessary context if not critical\n"
+        "5. Combine multiple sentences into one where possible\n"
+        "6. Use active voice instead of passive\n"
+        "7. Remove filler words and unnecessary adjectives\n"
+        "8. Use symbols instead of words where appropriate (e.g., '&' instead of 'and')\n"
+        "9. Remove repeated information\n"
+        "10. Use contractions where natural\n"
+        "Aim for maximum token reduction while keeping the essential meaning intact."
     ),
     "safety": (
         "Rewrite the prompt to reduce the risk of generating unsafe, biased, or harmful content. "
@@ -33,13 +44,28 @@ GOAL_INSTRUCTIONS = {
 def build_prompts(prompt: str, goal: str):
     instruction = GOAL_INSTRUCTIONS.get(goal.lower(), "Rewrite the prompt to improve it.")
     system_prompt = (
-        "You are a prompt optimization assistant. Your job is to rewrite prompts "
-        "based on specific goals like clarity, creativity, cost, or safety."
+        "You are an expert prompt optimization assistant with deep expertise in LLM prompt engineering. "
+        "Your task is to rewrite prompts to achieve specific optimization goals while maintaining or improving their effectiveness. "
+        "Follow these principles:\n"
+        "1. Always preserve the core intent and essential information\n"
+        "2. Apply optimization techniques appropriate for the goal\n"
+        "3. Ensure the optimized prompt will generate high-quality responses\n"
+        "4. Remove any unnecessary elements that don't contribute to the goal\n"
+        "5. Maintain natural language flow and readability\n"
+        "6. Consider the target model's capabilities and limitations\n"
+        "7. Use best practices for prompt engineering\n"
+        "8. If the original prompt is already optimal, return it unchanged"
     )
     user_prompt = (
-        f"{instruction} Rewrite the following prompt, and respond ONLY with the improved prompt—do not include any explanation or extra text.\n\n"
+        f"Optimization Goal: {instruction}\n\n"
         f"Original Prompt:\n{prompt}\n\n"
-        f"Optimized Prompt:"
+        f"Analyze the prompt and optimize it according to the goal. "
+        f"Consider the following:\n"
+        f"1. What is the core intent of the prompt?\n"
+        f"2. What elements are essential vs. optional?\n"
+        f"3. How can we achieve the optimization goal while maintaining effectiveness?\n"
+        f"4. What specific techniques should be applied?\n\n"
+        f"Optimized Prompt (respond ONLY with the improved prompt, no explanations):"
     )
     return system_prompt, user_prompt
 
