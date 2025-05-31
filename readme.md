@@ -4,10 +4,37 @@ Promptly is a Chrome extension and backend service that helps you optimize, rewr
 
 ## Features
 * **Seamless Prompt Detection:** Detects and extracts prompts from text fields on sites like ChatGPT, Notion, and Google.
-* **One-Click Optimization:** Instantly rewrites prompts for clarity, creativity, cost-efficiency, or safety using state-of-the-art LLMs via OpenRouter.
+* **One-Click Optimization:** Instantly rewrites prompts using state-of-the-art LLMs via OpenRouter and Groq, with multiple optimization goals:
+  - **Clarity:** Improves prompts by making them more clear, specific, and unambiguous. Perfect for technical tasks and code generation.
+  - **Creativity:** Rewrites prompts to encourage imaginative, open-ended, and original responses using expressive language.
+  - **Cost:** Optimizes prompts for efficiency by removing redundancy while preserving core meaning, helping reduce token usage.
+  - **Safety:** Rewrites prompts to reduce risks of generating unsafe, biased, or harmful content.
+  - **Sora Video:** Transforms prompts into optimized Sora video generation prompts with detailed guidelines for visual storytelling.
+  - **Code:** Optimizes prompts specifically for code generation, including function definitions, examples, and technical specifications.
 * **Replace in Place:** Replaces your original prompt with the optimized version in the same input field—no copy-paste required.
-* **Customizable Goals:** Choose your optimization goal (clarity, creativity, cost, safety) from the extension popup.
-* **Modern, Extensible Architecture:** Modular backend (FastAPI) and frontend (Chrome extension) for easy customization and future features.
+* **Prompt History:** View and manage your previously optimized prompts with a dedicated history page, including search and star functionality.
+* **Modern, Extensible Architecture:** 
+  - FastAPI backend with modular design
+  - Chrome extension with popup interface
+  - Shared code structure for common utilities
+  - Background service worker for persistent functionality
+  - Dual LLM support (OpenRouter and Groq) for reliability
+
+## Project Structure
+```
+promptly/
+├── backend/           # FastAPI backend service
+│   ├── app/          # Main application code
+│   └── requirements.txt
+├── extension/        # Chrome extension
+│   ├── assets/       # Images and static files
+│   ├── popup/        # Extension popup interface
+│   ├── background.js # Service worker
+│   ├── content.js    # Content script for page interaction
+│   └── manifest.json # Extension configuration
+├── shared/           # Shared utilities and types
+└── docs/            # Documentation
+```
 
 ## Demo
 
@@ -38,7 +65,7 @@ cd backend
 * Create a virtual environment and activate it:
 ```bash
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
 ```
 
 * Install dependencies:
@@ -69,18 +96,36 @@ uvicorn app.main:app --reload --port 8000
 4. **Select your optimization goal** and click **Optimize**.
 5. **Review the optimized prompt** in the popup.
 6. **Click "Replace"** to insert the improved prompt back into the original field.
+7. **Access your history** by clicking the history icon in the popup.
 
-## Customization
-* **Model Selection:** The backend uses Mistral 7B Instruct via OpenRouter by default. You can change the model in `backend/app/prompt_engine.py`.
-* **Add More Goals:** Edit the `GOAL_INSTRUCTIONS` dictionary in `prompt_engine.py` to add or refine optimization strategies.
-* **UI Enhancements:** The extension popup is modular and can be restyled using your preferred CSS framework.
+## Technical Details
+* **Backend:**
+  - FastAPI for high-performance API endpoints
+  - OpenRouter integration for LLM access
+  - Modular prompt engineering system
+  - Environment-based configuration
+
+* **Extension:**
+  - Manifest V3 compliant
+  - Service worker for background tasks
+  - Content script for page interaction
+  - Popup interface for user interaction
+  - History management system
+
+* **Shared Code:**
+  - Common types and interfaces
+  - Shared utilities
+  - Consistent configuration
 
 ## Roadmap
-* UI/UX improvements (modern design, notifications)
-* Model selection from the popup
-* Prompt history and analytics
-* Support for more sites and input types
-* Team/collaboration features
+* [ ] Enhanced UI/UX with modern design system
+* [ ] Advanced prompt analytics and insights
+* [ ] Custom prompt templates
+* [ ] Multi-model support with performance metrics
+* [ ] Team collaboration features
+* [ ] API rate limiting and usage tracking
+* [ ] Export/import prompt history
+* [ ] Keyboard shortcuts for quick actions
 
 ## Contributing
 
