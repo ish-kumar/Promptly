@@ -39,12 +39,12 @@ promptly/
 ## Demo
 
 <p align="center">
-  <img src="extension/assets/Promptly_SS_1.png" width="80%" alt="Promptly in action on ChatGPT.com" />
+  <img src="extension/assets/Promptly_SS_1_.png" width="80%" alt="Promptly in action on ChatGPT.com" />
 </p>
 <p align="center"><em>Promptly in action on ChatGPT.com</em></p>
 
 <p align="center">
-  <img src="extension/assets/Promptly_SS_2.png" alt="Promptly's prompt history section" width="60%">
+  <img src="extension/assets/Promptly_SS_2_.png" alt="Promptly's prompt history section" width="60%">
 </p>
 <p align="center"><em>Promptly's prompt history section (compact view)</em></p>
 
